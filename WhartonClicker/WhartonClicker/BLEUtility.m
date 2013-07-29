@@ -52,5 +52,17 @@
         }
     }
 }
-  
+
++(CBUUID *) expandToTIUUID:(CBUUID *)sourceUUID {
+    CBUUID *expandedUUID = [CBUUID UUIDWithString:TI_BASE_LONG_UUID];
+    unsigned char expandedUUIDBytes[16];
+    unsigned char sourceUUIDBytes[2];
+    [expandedUUID.data getBytes:expandedUUIDBytes];
+    [sourceUUID.data getBytes:sourceUUIDBytes];
+    expandedUUIDBytes[2] = sourceUUIDBytes[0];
+    expandedUUIDBytes[3] = sourceUUIDBytes[1];
+    expandedUUID = [CBUUID UUIDWithData:[NSData dataWithBytes:expandedUUIDBytes length:16]];
+    return expandedUUID;
+}
+
 @end

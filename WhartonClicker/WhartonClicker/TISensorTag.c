@@ -18,4 +18,3 @@
 
 #include <stdio.h>
 #include "TISensorTag.h"
-

@@ -309,7 +309,7 @@
             [aPeripheral discoverCharacteristics:nil forService:aService];
         }
         
-        // SimpleKeys service
+        // Simple Keys service
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"FFE0"]]) {
             NSLog(@"Found a Simple Keys service");
             [aPeripheral discoverCharacteristics:nil forService:aService];
