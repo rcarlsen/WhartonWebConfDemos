@@ -13,51 +13,32 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="pGg-6v-bdr" kind="relationship" relationship="rootViewController" id="RxB-wf-QIq"/>
+                        <segue destination="hJf-mP-JkH" kind="relationship" relationship="rootViewController" id="yXJ-lr-mx8"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eq9-QA-ai8" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1" y="64"/>
         </scene>
-        <!--Master View Controller - Master-->
-        <scene sceneID="VgW-fR-Quf">
-            <objects>
-                <tableViewController title="Master" id="pGg-6v-bdr" customClass="RCMasterViewController" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" title="Temperature Log" id="tQt-TN-PWz"/>
-                    <connections>
-                        <outlet property="tableView" destination="mLL-gJ-YKr" id="uMX-BR-FIk"/>
-                        <outlet property="view" destination="AFW-sz-wMk" id="QA0-cd-S8P"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6Cn-md-YlS" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="AFW-sz-wMk">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                </view>
-            </objects>
-            <point key="canvasLocation" x="459" y="64"/>
-        </scene>
-        <!--View Controller-->
+        <!--Master View Controller - Temperature Logs-->
         <scene sceneID="6Jm-UQ-vVz">
             <objects>
-                <viewController id="hJf-mP-JkH" sceneMemberID="viewController">
+                <viewController id="hJf-mP-JkH" customClass="RCMasterViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Bu8-Of-CuS"/>
                         <viewControllerLayoutGuide type="bottom" id="EIe-kt-5vE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="EBj-nk-YaY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mLL-gJ-YKr">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mLL-gJ-YKr">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="2pz-XF-uhl" detailTextLabel="Vqh-1S-L4t" style="IBUITableViewCellStyleValue1" id="m0d-ak-lc9">
-                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0d-ak-lc9" id="vU2-2k-JtJ">
                                             <rect key="frame" x="0.0" y="0.0" width="289" height="43"/>
@@ -86,15 +67,54 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="hJf-mP-JkH" id="SGG-W8-nDh"/>
+                                    <outlet property="delegate" destination="hJf-mP-JkH" id="2nm-yZ-rgr"/>
+                                </connections>
                             </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x21-xy-2z1">
+                                <rect key="frame" x="0.0" y="460" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="eUL-6f-3RF"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem title="Scan" id="rwr-3w-tA1">
+                                        <connections>
+                                            <action selector="scanButtonTapped:" destination="hJf-mP-JkH" id="2UN-LS-qGT"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="10" style="plain" systemItem="fixedSpace" id="YSj-nP-0Ol"/>
+                                    <barButtonItem title="Stop" id="7Sz-ry-MNw">
+                                        <connections>
+                                            <action selector="stopButtonTapped:" destination="hJf-mP-JkH" id="fr2-wL-enk"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="PAS-fV-E42"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="x21-xy-2z1" secondAttribute="bottom" id="1Ct-M6-rSc"/>
+                            <constraint firstItem="x21-xy-2z1" firstAttribute="leading" secondItem="EBj-nk-YaY" secondAttribute="leading" id="XSu-C7-e6h"/>
+                            <constraint firstItem="mLL-gJ-YKr" firstAttribute="top" secondItem="EBj-nk-YaY" secondAttribute="top" id="iOp-Q1-wLv"/>
+                            <constraint firstItem="mLL-gJ-YKr" firstAttribute="bottom" secondItem="x21-xy-2z1" secondAttribute="top" id="qri-e3-yDd"/>
+                            <constraint firstItem="x21-xy-2z1" firstAttribute="trailing" secondItem="EBj-nk-YaY" secondAttribute="trailing" id="r7i-xo-1jH"/>
+                            <constraint firstItem="mLL-gJ-YKr" firstAttribute="trailing" secondItem="x21-xy-2z1" secondAttribute="trailing" id="ttZ-0A-pRu"/>
+                            <constraint firstItem="mLL-gJ-YKr" firstAttribute="leading" secondItem="x21-xy-2z1" secondAttribute="leading" id="uwx-Li-zEI"/>
+                        </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" title="Temperature Logs" id="Pjv-ph-lCP"/>
+                    <connections>
+                        <outlet property="tableView" destination="mLL-gJ-YKr" id="2gf-Y7-i7J"/>
+                        <outlet property="view" destination="EBj-nk-YaY" id="dLB-8P-YEG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BCQ-yA-sOB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationItem title="Temperature Log" id="Oaw-ZR-l4z"/>
             </objects>
-            <point key="canvasLocation" x="682" y="-148"/>
+            <point key="canvasLocation" x="426" y="64"/>
         </scene>
         <!--Detail View Controller - Detail-->
         <scene sceneID="Cn3-H9-jdl">

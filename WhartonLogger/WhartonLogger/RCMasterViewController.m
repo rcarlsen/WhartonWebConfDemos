@@ -40,27 +40,6 @@
                                                                    target:self
                                                                    action:@selector(clearButtonTapped:)];
     self.navigationItem.rightBarButtonItem = clearButton;
-    
-    // add a footer, toolbar
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width,50.f)];
-    UIBarButtonItem *scanButton = [[UIBarButtonItem alloc] initWithTitle:@"Scan"
-                                                                   style:UIBarButtonItemStyleBordered
-                                                                  target:self
-                                                                  action:@selector(scanButtonTapped:)];
-    UIBarButtonItem *stopButton = [[UIBarButtonItem alloc] initWithTitle:@"Stop"
-                                                                   style:UIBarButtonItemStyleBordered
-                                                                  target:self
-                                                                  action:@selector(stopButtonTapped:)];
-    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                                                          target:nil
-                                                                          action:nil];
-    [fixed setWidth:10.f];
-    
-    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                          target:nil
-                                                                          action:nil];
-    [toolbar setItems:@[scanButton, fixed, stopButton, flex]];
-    [self.tableView setTableHeaderView:toolbar];
 }
 
 - (void)didReceiveMemoryWarning
@@ -126,12 +105,12 @@ static char AlertViewClearKey;
 }
 
 
-- (void)scanButtonTapped:(id)sender;
+- (IBAction)scanButtonTapped:(id)sender;
 {
     [(RCAppDelegate*)[[UIApplication sharedApplication] delegate] startScan];
 }
 
-- (void)stopButtonTapped:(id)sender;
+- (IBAction)stopButtonTapped:(id)sender;
 {
     [(RCAppDelegate*)[[UIApplication sharedApplication] delegate] stopLogging];
 }
@@ -198,10 +177,14 @@ static char AlertViewClearKey;
     return NO;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // this is what we would do to present the detail page
-    
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
