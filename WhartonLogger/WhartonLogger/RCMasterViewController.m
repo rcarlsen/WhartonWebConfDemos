@@ -9,8 +9,13 @@
 #import "RCMasterViewController.h"
 #import "RCDetailViewController.h"
 #import "RCAppDelegate.h"
+#import "Sensors.h" // for a helper function
+
+#import <objc/runtime.h>
 
 @interface RCMasterViewController ()
+<UIAlertViewDelegate>
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
 
@@ -27,8 +32,14 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+//    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+//    self.navigationItem.rightBarButtonItem = addButton;
+    
+    UIBarButtonItem *clearButton = [[UIBarButtonItem alloc] initWithTitle:@"Clear"
+                                                                    style:UIBarButtonItemStyleBordered
+                                                                   target:self
+                                                                   action:@selector(clearButtonTapped:)];
+    self.navigationItem.rightBarButtonItem = clearButton;
     
     // add a footer, toolbar
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width,50.f)];
@@ -59,6 +70,29 @@
 }
 
 #pragma mark - Methods
+- (IBAction)clearLog:(id)sender
+{
+    // remove all entities from the log
+    NSFetchRequest * allEntries = [[NSFetchRequest alloc] init];
+    [allEntries setEntity:[[self.fetchedResultsController fetchRequest] entity]];
+    [allEntries setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+    
+    NSError *error = nil;
+    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    NSArray *entries = [context executeFetchRequest:allEntries error:&error];
+
+    //error handling would go here
+    for (NSManagedObject *log in entries) {
+        [context deleteObject:log];
+    }
+    
+    NSError *saveError = nil;
+    [context save:&saveError];
+    //more error handling would go here
+
+}
+
+
 - (void)insertNewObject:(id)sender
 {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
@@ -79,6 +113,19 @@
     }
 }
 
+static char AlertViewClearKey;
+- (IBAction)clearButtonTapped:(id)sender;
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Clear log"
+                                                    message:@"This will delete all records in the log."
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Delete", nil];
+    objc_setAssociatedObject(alert, &AlertViewClearKey, @"clearKey", OBJC_ASSOCIATION_RETAIN);
+    [alert show];
+}
+
+
 - (void)scanButtonTapped:(id)sender;
 {
     [(RCAppDelegate*)[[UIApplication sharedApplication] delegate] startScan];
@@ -88,6 +135,20 @@
 {
     [(RCAppDelegate*)[[UIApplication sharedApplication] delegate] stopLogging];
 }
+
+#pragma mark - UIAlertViewDelegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    id clearKey = objc_getAssociatedObject(alertView, &AlertViewClearKey);
+    if (clearKey) {
+        // this is the clear log alert
+        if (buttonIndex == [alertView cancelButtonIndex]) {
+            return;
+        }
+        [self clearLog:nil];
+    }
+}
+
 
 #pragma mark - Table View
 
@@ -140,9 +201,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // this is what we would do to present the detail page
-    // NOP for now.
-    
-    return;
     
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
@@ -254,7 +312,8 @@
 {
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1f°C", [[object valueForKey:@"temperature"] floatValue]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1f°F",
+                                 fahrenheitValueFromCelcisus([[object valueForKey:@"temperature"] floatValue])];
 }
 
 @end

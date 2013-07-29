@@ -7,6 +7,7 @@
 //
 
 #import "RCDetailViewController.h"
+#import "Sensors.h" // just for a helpful conversion utility
 
 @interface RCDetailViewController ()
 - (void)configureView;
@@ -32,6 +33,8 @@
 
     if (self.detailItem) {
         self.detailDescriptionLabel.text = [[self.detailItem valueForKey:@"timeStamp"] description];
+        self.detailTemperatureLabel.text = [NSString stringWithFormat:@"%.1f°F",
+                                            fahrenheitValueFromCelcisus([[self.detailItem valueForKey:@"temperature"] floatValue])];
     }
 }
 

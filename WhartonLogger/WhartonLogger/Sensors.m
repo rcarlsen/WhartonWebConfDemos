@@ -8,6 +8,12 @@
 
 #import "Sensors.h"
 
+
+float fahrenheitValueFromCelcisus(float cTemp) {
+    return (cTemp * 1.8000) + 32.00;
+}
+
+
 @implementation sensorC953A
 @synthesize c1,c2,c3,c4,c5,c6,c7,c8;
 

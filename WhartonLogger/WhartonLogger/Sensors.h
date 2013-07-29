@@ -6,8 +6,11 @@
 //  Copyright (c) 2012 Texas Instruments All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import<Foundation/Foundation.h>
 
+// helpers
+float fahrenheitValueFromCelcisus(float cTemp);
+    
 @interface  sensorC953A: NSObject
 
 ///Calibration values unsigned

@@ -10,8 +10,10 @@
 
 #import <CoreData/CoreData.h>
 
-@interface RCMasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface RCMasterViewController : UIViewController
+<UITabBarControllerDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
 
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
