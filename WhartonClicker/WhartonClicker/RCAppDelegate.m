@@ -382,6 +382,7 @@
             // key up is 0x00
             if (keyPress & 1) {
                 NSLog(@"key 1 down");
+                _buttonPressLabel.stringValue = @"Key 1";
                 
                 CGEventRef eventDown;
                 eventDown = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)124, true);
@@ -397,6 +398,7 @@
         
             if (keyPress & 2) {
                 NSLog(@"key 2 down");
+                _buttonPressLabel.stringValue = @"Key 2";
                 
                 CGEventRef eventDown;
                 eventDown = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)123, true);

@@ -25,6 +25,7 @@
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSWindow *scanSheet;
+@property (weak) IBOutlet NSTextField *buttonPressLabel;
 
 @property (assign) IBOutlet NSArrayController *arrayController;
 @property (retain) NSMutableArray *clickers;

@@ -443,10 +443,10 @@
         <window title="WhartonClicker" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="480" height="360"/>
+            <rect key="contentRect" x="335" y="390" width="480" height="108"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="108"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9E9-vU-5F3">
@@ -457,10 +457,26 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                     </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XIK-Lm-KCm">
+                        <rect key="frame" x="17" y="59" width="446" height="29"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="29" id="yru-fl-wJh"/>
+                        </constraints>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Button Press" id="PPy-BQ-66a">
+                            <font key="font" size="24" name="LucidaGrande"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="9E9-vU-5F3" secondAttribute="bottom" constant="20" id="4kJ-FV-kZC"/>
                     <constraint firstItem="9E9-vU-5F3" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="20" id="QZW-NV-GIS"/>
+                    <constraint firstItem="XIK-Lm-KCm" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="20" id="itF-Ft-zBa"/>
+                    <constraint firstAttribute="trailing" secondItem="XIK-Lm-KCm" secondAttribute="trailing" constant="20" id="nLz-Bk-5ah"/>
+                    <constraint firstItem="XIK-Lm-KCm" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" id="ozE-tN-2fA"/>
+                    <constraint firstItem="9E9-vU-5F3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="XIK-Lm-KCm" secondAttribute="bottom" constant="18" id="uV3-0v-94T"/>
                 </constraints>
             </view>
         </window>
@@ -470,6 +486,7 @@
                 <action selector="closeScanSheet:" destination="41C-0x-iag" id="ANl-6g-3wf"/>
                 <action selector="connectButtonPressed:" destination="9E9-vU-5F3" id="Scn-Lx-kzk"/>
                 <outlet property="arrayController" destination="gqM-2b-Rli" id="wpL-jg-H9s"/>
+                <outlet property="buttonPressLabel" destination="XIK-Lm-KCm" id="K6E-Jb-MdO"/>
                 <outlet property="connectButton" destination="9E9-vU-5F3" id="6sK-tt-n3I"/>
                 <outlet property="scanSheet" destination="MqH-bC-zgz" id="ubg-he-s5z"/>
                 <outlet property="window" destination="371" id="532"/>
