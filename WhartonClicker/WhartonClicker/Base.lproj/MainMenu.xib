@@ -469,10 +469,16 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="sDw-tR-dqt">
+                        <rect key="frame" x="108" y="22" width="16" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </progressIndicator>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="9E9-vU-5F3" secondAttribute="bottom" constant="20" id="4kJ-FV-kZC"/>
+                    <constraint firstItem="sDw-tR-dqt" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="108" id="CTQ-Ng-Zu3"/>
                     <constraint firstItem="9E9-vU-5F3" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="20" id="QZW-NV-GIS"/>
+                    <constraint firstItem="9E9-vU-5F3" firstAttribute="centerY" secondItem="sDw-tR-dqt" secondAttribute="centerY" constant="-0.5" id="TXe-U3-vyN"/>
                     <constraint firstItem="XIK-Lm-KCm" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="20" id="itF-Ft-zBa"/>
                     <constraint firstAttribute="trailing" secondItem="XIK-Lm-KCm" secondAttribute="trailing" constant="20" id="nLz-Bk-5ah"/>
                     <constraint firstItem="XIK-Lm-KCm" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" id="ozE-tN-2fA"/>
@@ -488,6 +494,7 @@
                 <outlet property="arrayController" destination="gqM-2b-Rli" id="wpL-jg-H9s"/>
                 <outlet property="buttonPressLabel" destination="XIK-Lm-KCm" id="K6E-Jb-MdO"/>
                 <outlet property="connectButton" destination="9E9-vU-5F3" id="6sK-tt-n3I"/>
+                <outlet property="progressIndicator" destination="sDw-tR-dqt" id="I2j-lT-NjQ"/>
                 <outlet property="scanSheet" destination="MqH-bC-zgz" id="ubg-he-s5z"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
