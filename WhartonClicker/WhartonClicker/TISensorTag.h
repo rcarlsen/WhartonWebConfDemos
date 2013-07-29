@@ -16,7 +16,7 @@
 //  Author: Charles Y. Choi <charles.choi@yummymelon.com>
 //
 
-#include "YMS128.h"
+//#include "YMS128.h"
 
 /**
  Data pulled from the following sources:
@@ -31,6 +31,9 @@
 
 // Is this unique?
 #define kSensorTag_IDENTIFIER "9C4EEB7D-BE3A-E942-1539-CB7AD105CE5D"
+
+// eg. service 0xAA01 is:
+// F000AA01-0451-4000-B000-000000000000
 
 #define kSensorTag_BASE_ADDRESS_HI 0xF000000004514000
 #define kSensorTag_BASE_ADDRESS_LO 0xB000000000000000
@@ -87,9 +90,6 @@
 #define kSensorTag_TEST_SERVICE            0xAA60
 #define kSensorTag_TEST_DATA               0xAA61
 #define kSensorTag_TEST_CONFIG             0xAA62
-
-yms_u128_t yms_u128_genSensorTagOffset(int value);
-yms_u128_t yms_u128_genSensorTagAddressWithInt(yms_u128_t *base, int value);
 
 
 #endif

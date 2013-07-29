@@ -21,6 +21,7 @@
 		24B379A917A6A6FC00CEBF2A /* BLEUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B379A417A6A6FC00CEBF2A /* BLEUtility.m */; };
 		24B379AB17A6A6FC00CEBF2A /* Sensors.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B379A817A6A6FC00CEBF2A /* Sensors.m */; };
 		24B379AD17A6A71E00CEBF2A /* IOBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B379AC17A6A71E00CEBF2A /* IOBluetooth.framework */; };
+		24B379B217A6AD7E00CEBF2A /* TISensorTag.c in Sources */ = {isa = PBXBuildFile; fileRef = 24B379B117A6AD7E00CEBF2A /* TISensorTag.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,8 @@
 		24B379A717A6A6FC00CEBF2A /* Sensors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensors.h; sourceTree = "<group>"; };
 		24B379A817A6A6FC00CEBF2A /* Sensors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sensors.m; sourceTree = "<group>"; };
 		24B379AC17A6A71E00CEBF2A /* IOBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOBluetooth.framework; path = System/Library/Frameworks/IOBluetooth.framework; sourceTree = SDKROOT; };
+		24B379B017A6AD7E00CEBF2A /* TISensorTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TISensorTag.h; sourceTree = "<group>"; };
+		24B379B117A6AD7E00CEBF2A /* TISensorTag.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TISensorTag.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +126,8 @@
 		24B3797217A6A67E00CEBF2A /* WhartonClicker */ = {
 			isa = PBXGroup;
 			children = (
+				24B379B017A6AD7E00CEBF2A /* TISensorTag.h */,
+				24B379B117A6AD7E00CEBF2A /* TISensorTag.c */,
 				24B379A317A6A6FC00CEBF2A /* BLEUtility.h */,
 				24B379A417A6A6FC00CEBF2A /* BLEUtility.m */,
 				24B379A717A6A6FC00CEBF2A /* Sensors.h */,
@@ -268,6 +273,7 @@
 				24B3797917A6A67E00CEBF2A /* main.m in Sources */,
 				24B379A917A6A6FC00CEBF2A /* BLEUtility.m in Sources */,
 				24B3798017A6A67F00CEBF2A /* RCAppDelegate.m in Sources */,
+				24B379B217A6AD7E00CEBF2A /* TISensorTag.c in Sources */,
 				24B379AB17A6A6FC00CEBF2A /* Sensors.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

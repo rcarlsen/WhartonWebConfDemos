@@ -8,14 +8,14 @@
 
 #import "RCAppDelegate.h"
 
-#include "Sensors.h"
-#include "BLEUtility.h"
+#import "Sensors.h"
+#import "BLEUtility.h"
+#import "TISensorTag.h"
 
 @implementation RCAppDelegate
 
 -(void) configureSensorTag {
     // Configure sensortag, turning on Sensors and setting update period for sensors etc ...
-    
     // NOP
     
 }
@@ -24,10 +24,7 @@
     // NOP
 }
 
-
--(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
-}
-
+#pragma mark - Application Delegate methods
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
@@ -148,9 +145,46 @@
 
 
 #pragma mark - Methods
+- (BOOL) isLECapableHardware
+{
+    NSString * state = nil;
+    
+    switch ([manager state])
+    {
+        case CBCentralManagerStateUnsupported:
+            state = @"The platform/hardware doesn't support Bluetooth Low Energy.";
+            break;
+        case CBCentralManagerStateUnauthorized:
+            state = @"The app is not authorized to use Bluetooth Low Energy.";
+            break;
+        case CBCentralManagerStatePoweredOff:
+            state = @"Bluetooth is currently powered off.";
+            break;
+        case CBCentralManagerStatePoweredOn:
+            return TRUE;
+        case CBCentralManagerStateUnknown:
+        default:
+            return FALSE;
+            
+    }
+    
+    NSLog(@"Central manager state: %@", state);
+    
+    [self cancelScanSheet:nil];
+    
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert setMessageText:state];
+    [alert addButtonWithTitle:@"OK"];
+    [alert setIcon:[[NSImage alloc] initWithContentsOfFile:@"AppIcon"]];
+    [alert beginSheetModalForWindow:[self window] modalDelegate:self didEndSelector:nil contextInfo:nil];
+    
+    return FALSE;
+}
+
 - (void) startScan
 {
-    [manager scanForPeripheralsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:@"180D"]] options:nil];
+//    [manager scanForPeripheralsWithServices:[NSArray arrayWithObject:[CBUUID UUIDWithString:@"180D"]] options:nil];
+    [manager scanForPeripheralsWithServices:nil options:nil]; // all objects
 }
 
 /*
@@ -175,8 +209,8 @@
  */
 - (void) centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)aPeripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    NSMutableArray *peripherals = [self mutableArrayValueForKey:@"heartRateMonitors"];
-    if( ![self.heartRateMonitors containsObject:aPeripheral] )
+    NSMutableArray *peripherals = [self mutableArrayValueForKey:@"clickers"];
+    if( ![self.clickers containsObject:aPeripheral] )
         [peripherals addObject:aPeripheral];
     
     /* Retreive already known devices */
@@ -203,7 +237,6 @@
         [progressIndicator setHidden:FALSE];
         [progressIndicator startAnimation:self];
         peripheral = [peripherals objectAtIndex:0];
-        [peripheral retain];
         [connectButton setTitle:@"Cancel"];
         [manager connectPeripheral:peripheral options:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:CBConnectPeripheralOptionNotifyOnDisconnectionKey]];
     }
@@ -218,7 +251,6 @@
     [aPeripheral setDelegate:self];
     [aPeripheral discoverServices:nil];
 	
-	self.connected = @"Connected";
     [connectButton setTitle:@"Disconnect"];
     [indicatorButton setHidden:TRUE];
     [progressIndicator setHidden:TRUE];
@@ -231,14 +263,11 @@
  */
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)aPeripheral error:(NSError *)error
 {
-	self.connected = @"Not connected";
     [connectButton setTitle:@"Connect"];
-    self.manufacturer = @"";
-    self.heartRate = 0;
+
     if( peripheral )
     {
         [peripheral setDelegate:nil];
-        [peripheral release];
         peripheral = nil;
     }
 }
@@ -253,7 +282,6 @@
     if( peripheral )
     {
         [peripheral setDelegate:nil];
-        [peripheral release];
         peripheral = nil;
     }
 }
@@ -268,13 +296,7 @@
     for (CBService *aService in aPeripheral.services)
     {
         NSLog(@"Service found with UUID: %@", aService.UUID);
-        
-        /* Heart Rate Service */
-        if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"180D"]])
-        {
-            [aPeripheral discoverCharacteristics:nil forService:aService];
-        }
-        
+
         /* Device Information Service */
         if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"180A"]])
         {
@@ -286,6 +308,12 @@
         {
             [aPeripheral discoverCharacteristics:nil forService:aService];
         }
+        
+        // SimpleKeys service
+        if ([aService.UUID isEqual:[CBUUID UUIDWithString:@"FFE0"]]) {
+            NSLog(@"Found a Simple Keys service");
+            [aPeripheral discoverCharacteristics:nil forService:aService];
+        }
     }
 }
 
@@ -295,29 +323,16 @@
  */
 - (void) peripheral:(CBPeripheral *)aPeripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
-    if ([service.UUID isEqual:[CBUUID UUIDWithString:@"180D"]])
-    {
-        for (CBCharacteristic *aChar in service.characteristics)
-        {
-            /* Set notification on heart rate measurement */
-            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]])
+
+    // simple keys
+    if ([service.UUID isEqual:[CBUUID UUIDWithString:@"FFE0"]]) {
+        // 0xFFE1
+        for (CBCharacteristic *aChar in service.characteristics) {
+            /* Set notification on key press */
+            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:@"FFE1"]])
             {
                 [peripheral setNotifyValue:YES forCharacteristic:aChar];
-                NSLog(@"Found a Heart Rate Measurement Characteristic");
-            }
-            /* Read body sensor location */
-            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:@"2A38"]])
-            {
-                [aPeripheral readValueForCharacteristic:aChar];
-                NSLog(@"Found a Body Sensor Location Characteristic");
-            }
-            
-            /* Write heart rate control point */
-            if ([aChar.UUID isEqual:[CBUUID UUIDWithString:@"2A39"]])
-            {
-                uint8_t val = 1;
-                NSData* valData = [NSData dataWithBytes:(void*)&val length:sizeof(val)];
-                [aPeripheral writeValue:valData forCharacteristic:aChar type:CBCharacteristicWriteWithResponse];
+                NSLog(@"Found a Key Press Characteristic");
             }
         }
     }
@@ -355,64 +370,60 @@
 - (void) peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
     /* Updated value for heart rate measurement received */
-    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A37"]])
+    if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFE1"]])
     {
         if( (characteristic.value)  || !error )
         {
-            /* Update UI with heart rate data */
-            [self updateWithHRMData:characteristic.value];
-        }
-    }
-    /* Value for body sensor location received */
-    else  if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A38"]])
-    {
-        NSData * updatedValue = characteristic.value;
-        uint8_t* dataPointer = (uint8_t*)[updatedValue bytes];
-        if(dataPointer)
-        {
-            uint8_t location = dataPointer[0];
-            NSString*  locationString;
-            switch (location)
-            {
-                case 0:
-                    locationString = @"Other";
-                    break;
-                case 1:
-                    locationString = @"Chest";
-                    break;
-                case 2:
-                    locationString = @"Wrist";
-                    break;
-                case 3:
-                    locationString = @"Finger";
-                    break;
-                case 4:
-                    locationString = @"Hand";
-                    break;
-                case 5:
-                    locationString = @"Ear Lobe";
-                    break;
-                case 6:
-                    locationString = @"Foot";
-                    break;
-                default:
-                    locationString = @"Reserved";
-                    break;
+            NSLog(@"got a key press: %@", [characteristic.value description]);
+            uint8_t keyPress = 0;
+            [characteristic.value getBytes:&keyPress length:1];
+            
+            // key down is 0x01 | 0x02
+            // key up is 0x00
+            if (keyPress & 1) {
+                NSLog(@"key 1 down");
+                
+                CGEventRef eventDown;
+                eventDown = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)124, true);
+                CGEventPost(kCGHIDEventTap, eventDown);
             }
-            NSLog(@"Body Sensor Location = %@ (%d)", locationString, location);
+            else {
+                NSLog(@"key 1 up");
+                
+                CGEventRef eventUp;
+                eventUp = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)124, false);
+                CGEventPost(kCGHIDEventTap, eventUp);
+            }
+        
+            if (keyPress & 2) {
+                NSLog(@"key 2 down");
+                
+                CGEventRef eventDown;
+                eventDown = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)123, true);
+                CGEventPost(kCGHIDEventTap, eventDown);
+            }
+            else {
+                NSLog(@"key 2 up");
+                
+                CGEventRef eventUp;
+                eventUp = CGEventCreateKeyboardEvent (NULL, (CGKeyCode)123, false);
+                CGEventPost(kCGHIDEventTap, eventUp);
+            }
         }
     }
+    
+    
     /* Value for device Name received */
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:CBUUIDDeviceNameString]])
     {
-        NSString * deviceName = [[[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding] autorelease];
+        NSString * deviceName = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
         NSLog(@"Device Name = %@", deviceName);
     }
     /* Value for manufacturer name received */
     else if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"2A29"]])
     {
-        self.manufacturer = [[[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding] autorelease];
-        NSLog(@"Manufacturer Name = %@", self.manufacturer);
+        //self.manufacturer = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+        //NSLog(@"Manufacturer Name = %@", self.manufacturer);
     }
 }
 
