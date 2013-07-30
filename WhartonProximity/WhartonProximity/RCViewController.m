@@ -71,7 +71,7 @@
         return;
     }
     
-    [manager scanForPeripheralsWithServices:nil // really want to limit this to the sensor tag.
+    [manager scanForPeripheralsWithServices:nil
                                     options:@{CBCentralManagerScanOptionAllowDuplicatesKey: @1}]; // want to keep scanning to update RSSI
 }
 

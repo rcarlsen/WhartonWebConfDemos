@@ -133,10 +133,6 @@
 		24B379C717A6CA4300CEBF2A /* WhartonLogger */ = {
 			isa = PBXGroup;
 			children = (
-				24B379FD17A6CACB00CEBF2A /* BLEUtility.h */,
-				24B379FE17A6CACB00CEBF2A /* BLEUtility.m */,
-				24B379FF17A6CACB00CEBF2A /* Sensors.h */,
-				24B37A0017A6CACB00CEBF2A /* Sensors.m */,
 				24B379D017A6CA4300CEBF2A /* RCAppDelegate.h */,
 				24B379D117A6CA4300CEBF2A /* RCAppDelegate.m */,
 				24B379D317A6CA4300CEBF2A /* Main.storyboard */,
@@ -154,6 +150,10 @@
 		24B379C817A6CA4300CEBF2A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				24B379FD17A6CACB00CEBF2A /* BLEUtility.h */,
+				24B379FE17A6CACB00CEBF2A /* BLEUtility.m */,
+				24B379FF17A6CACB00CEBF2A /* Sensors.h */,
+				24B37A0017A6CACB00CEBF2A /* Sensors.m */,
 				24B379C917A6CA4300CEBF2A /* WhartonLogger-Info.plist */,
 				24B379CA17A6CA4300CEBF2A /* InfoPlist.strings */,
 				24B379CD17A6CA4300CEBF2A /* main.m */,
@@ -492,6 +492,7 @@
 				24B379F917A6CA4300CEBF2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		24B379FA17A6CA4300CEBF2A /* Build configuration list for PBXNativeTarget "WhartonLoggerTests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +501,7 @@
 				24B379FC17A6CA4300CEBF2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

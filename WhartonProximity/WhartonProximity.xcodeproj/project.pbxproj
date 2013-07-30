@@ -118,9 +118,9 @@
 			children = (
 				24FD24C017A71C0B009CD9EC /* RCAppDelegate.h */,
 				24FD24C117A71C0B009CD9EC /* RCAppDelegate.m */,
-				24FD24C317A71C0B009CD9EC /* Main.storyboard */,
 				24FD24C617A71C0B009CD9EC /* RCViewController.h */,
 				24FD24C717A71C0B009CD9EC /* RCViewController.m */,
+				24FD24C317A71C0B009CD9EC /* Main.storyboard */,
 				24FD24C917A71C0B009CD9EC /* Images.xcassets */,
 				24FD24B817A71C0B009CD9EC /* Supporting Files */,
 			);
@@ -466,6 +466,7 @@
 				24FD24E217A71C0B009CD9EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		24FD24E317A71C0B009CD9EC /* Build configuration list for PBXNativeTarget "WhartonProximityTests" */ = {
 			isa = XCConfigurationList;
@@ -474,6 +475,7 @@
 				24FD24E517A71C0B009CD9EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

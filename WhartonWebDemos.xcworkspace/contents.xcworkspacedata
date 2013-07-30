@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:WhartonLogger/WhartonLogger.xcodeproj">
+      location = "group:WhartonHeart/WhartonHeart.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:WhartonHeart/WhartonHeart.xcodeproj">
+      location = "group:WhartonLogger/WhartonLogger.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:WhartonProximity/WhartonProximity.xcodeproj">

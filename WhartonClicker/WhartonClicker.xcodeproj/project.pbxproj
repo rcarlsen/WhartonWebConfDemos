@@ -126,12 +126,6 @@
 		24B3797217A6A67E00CEBF2A /* WhartonClicker */ = {
 			isa = PBXGroup;
 			children = (
-				24B379B017A6AD7E00CEBF2A /* TISensorTag.h */,
-				24B379B117A6AD7E00CEBF2A /* TISensorTag.c */,
-				24B379A317A6A6FC00CEBF2A /* BLEUtility.h */,
-				24B379A417A6A6FC00CEBF2A /* BLEUtility.m */,
-				24B379A717A6A6FC00CEBF2A /* Sensors.h */,
-				24B379A817A6A6FC00CEBF2A /* Sensors.m */,
 				24B3797E17A6A67F00CEBF2A /* RCAppDelegate.h */,
 				24B3797F17A6A67F00CEBF2A /* RCAppDelegate.m */,
 				24B3798117A6A67F00CEBF2A /* MainMenu.xib */,
@@ -144,6 +138,12 @@
 		24B3797317A6A67E00CEBF2A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				24B379B017A6AD7E00CEBF2A /* TISensorTag.h */,
+				24B379B117A6AD7E00CEBF2A /* TISensorTag.c */,
+				24B379A317A6A6FC00CEBF2A /* BLEUtility.h */,
+				24B379A417A6A6FC00CEBF2A /* BLEUtility.m */,
+				24B379A717A6A6FC00CEBF2A /* Sensors.h */,
+				24B379A817A6A6FC00CEBF2A /* Sensors.m */,
 				24B3797417A6A67E00CEBF2A /* WhartonClicker-Info.plist */,
 				24B3797517A6A67E00CEBF2A /* InfoPlist.strings */,
 				24B3797817A6A67E00CEBF2A /* main.m */,
@@ -495,6 +495,7 @@
 				24B3799F17A6A67F00CEBF2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		24B379A017A6A67F00CEBF2A /* Build configuration list for PBXNativeTarget "WhartonClickerTests" */ = {
 			isa = XCConfigurationList;
@@ -503,6 +504,7 @@
 				24B379A217A6A67F00CEBF2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

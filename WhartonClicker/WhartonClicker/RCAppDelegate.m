@@ -326,7 +326,6 @@
 
     // simple keys
     if ([service.UUID isEqual:[CBUUID UUIDWithString:@"FFE0"]]) {
-        // 0xFFE1
         for (CBCharacteristic *aChar in service.characteristics) {
             /* Set notification on key press */
             if ([aChar.UUID isEqual:[CBUUID UUIDWithString:@"FFE1"]])
@@ -369,7 +368,7 @@
  */
 - (void) peripheral:(CBPeripheral *)aPeripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    /* Updated value for heart rate measurement received */
+    /* Updated value for simple keys characteristic received */
     if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:@"FFE1"]])
     {
         if( (characteristic.value)  || !error )
