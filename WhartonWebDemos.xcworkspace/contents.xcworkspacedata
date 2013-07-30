@@ -5,9 +5,12 @@
       location = "group:WhartonLogger/WhartonLogger.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:WhartonClicker/WhartonClicker.xcodeproj">
+      location = "group:WhartonHeart/WhartonHeart.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:WhartonHeart/WhartonHeart.xcodeproj">
+      location = "group:WhartonProximity/WhartonProximity.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:WhartonClicker/WhartonClicker.xcodeproj">
    </FileRef>
 </Workspace>
