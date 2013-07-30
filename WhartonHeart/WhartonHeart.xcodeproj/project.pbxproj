@@ -51,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2409AD4C17A8827C0020E45C /* ParseKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseKeys.h; sourceTree = "<group>"; };
 		2436632717A6053300A0F088 /* WhartonHeart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhartonHeart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2436632A17A6053300A0F088 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2436632C17A6053300A0F088 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -178,17 +179,18 @@
 		2436633017A6053300A0F088 /* WhartonHeart */ = {
 			isa = PBXGroup;
 			children = (
+				2409AD4C17A8827C0020E45C /* ParseKeys.h */,
 				2436633917A6053300A0F088 /* RCAppDelegate.h */,
 				2436633A17A6053300A0F088 /* RCAppDelegate.m */,
 				2436637917A6096900A0F088 /* RCHeartLogTableViewController.h */,
 				2436637A17A6096900A0F088 /* RCHeartLogTableViewController.m */,
 				2436637C17A60AA000A0F088 /* RCHeartViewController.h */,
 				2436637D17A60AA000A0F088 /* RCHeartViewController.m */,
+				2436638317A6107B00A0F088 /* RCHeartRateSample.h */,
+				2436638417A6107B00A0F088 /* RCHeartRateSample.m */,
 				2436637717A607D200A0F088 /* Main Storyboard.storyboard */,
 				2436633C17A6053300A0F088 /* Images.xcassets */,
 				2436633117A6053300A0F088 /* Supporting Files */,
-				2436638317A6107B00A0F088 /* RCHeartRateSample.h */,
-				2436638417A6107B00A0F088 /* RCHeartRateSample.m */,
 			);
 			path = WhartonHeart;
 			sourceTree = "<group>";
